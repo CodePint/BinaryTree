@@ -5,6 +5,10 @@ class Node
     @data = data
   end
 
+  def leaf?
+    @left.nil? && @right.nil?
+  end
+
   include Comparable
 
   def <=>(node)

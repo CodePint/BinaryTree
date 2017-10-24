@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require './lib/binary_tree'
-require './lib/node'
+require_relative 'spec_helper'
 
 describe BinaryTree do
 
@@ -27,20 +25,20 @@ describe BinaryTree do
 
     describe "next steps..." do
       before do
-        skip "TODO attempt these next tests yourself...!"
+        # skip "TODO attempt these next tests yourself...!"
       end
 
       describe "nodes" do
         it "should find all the nodes" do
           @tree.nodes.length.must_equal(7)
-          @tree.nodes.map(&:data).must_equal %w(Dan Barry Ted Daniel Alice Andy Sally)
+          @tree.nodes.map(&:data).must_equal %w(Alice Andy Barry Dan Daniel Sally Ted)
         end
       end
 
       describe "leaves" do
         it "should find the nodes with no left or right value" do
           @tree.leaves.length.must_equal(2)
-          @tree.leaves.map(&:data).must_equal %w(Alice Sally)
+          @tree.leaves.map(&:data).must_equal %w(Andy Sally)
         end
       end
 
@@ -56,21 +54,6 @@ describe BinaryTree do
           @tree.find("Ted").wont_equal nil
           @tree.find("Ted").left.data.must_equal("Daniel")
           @tree.find("Ted").left.right.data.must_equal("Sally")
-        end
-      end
-
-      describe "delete" do
-        before do
-          @tree.delete("Ted")
-        end
-
-        it "should remove a node" do
-          @tree.include?('Ted').must_equal false
-        end
-
-        it "should replace the node with its left child" do
-          @tree.root.right.data.must_equal("Daniel")
-          @tree.root.right.right.data.must_equal("Sally")
         end
       end
     end
