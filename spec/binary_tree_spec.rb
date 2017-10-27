@@ -56,6 +56,27 @@ describe BinaryTree do
           @tree.find("Ted").left.right.data.must_equal("Sally")
         end
       end
+
+      describe "find_all" do
+        it "should return nodes having data of length greater than 3" do
+          @tree.find_all do |node|
+            node.data.length > 3
+          end.map(&:data).must_equal ["Alice", "Andy", "Barry", "Daniel", "Sally"]
+        end
+
+        it "should return nodes having exactly two children" do
+          @tree.find_all do |node|
+            node.left && node.right
+          end.map(&:data).must_equal ["Dan"]
+        end
+
+        it "should return nodes ending in y" do
+          @tree.find_all do |node|
+            node.data =~ /y$/
+          end.map(&:data).must_equal ["Andy", "Barry", "Sally"]
+        end
+      end
+
     end
   end
 end

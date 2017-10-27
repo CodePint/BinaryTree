@@ -38,6 +38,14 @@ class BinaryTree
     end
   end
 
+  def find_all(node = root, &block)
+    if node
+      ([find_all(node.left, &block)] +
+      [block.call(node) ? node : nil] +
+      [find_all(node.right, &block)]).compact.flatten
+    end
+  end
+
   def include?(data, node = root)
     find(data) ? true : false
   end
