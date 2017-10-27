@@ -1,6 +1,8 @@
 class BinaryTree
   attr_accessor :root
 
+  include Enumerable
+
   def insert(new_node, node = root)
     if root.nil?
       self.root = new_node
@@ -17,37 +19,18 @@ class BinaryTree
     end
   end
 
-  def nodes(node = root)
-    ([nodes(node.left)] + [node] + [nodes(node.right)]).compact.flatten if node
-  end
+  alias :nodes :entries
 
   def leaves(node = root)
-    ([leaves(node.left)] + [node.leaf? ? node : nil] + [leaves(node.right)]).compact.flatten if node
+    select { |node| node.leaf? }
   end
 
-  def find(data, node = root)
-    if node.nil?
-      return
-    elsif node.data == data
-      return node
-    else
-      left = find(data, node.left)
-      return left if left
-      right = find(data, node.right)
-      return right if right
-    end
-  end
-
-  def find_all(node = root, &block)
+  def each(node = root, &block)
     if node
-      ([find_all(node.left, &block)] +
-      [block.call(node) ? node : nil] +
-      [find_all(node.right, &block)]).compact.flatten
+      each(node.left, &block)
+      block.call(node)
+      each(node.right, &block)
     end
-  end
-
-  def include?(data, node = root)
-    find(data) ? true : false
   end
 
   def to_s

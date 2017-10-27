@@ -31,7 +31,7 @@ describe BinaryTree do
       describe "nodes" do
         it "should find all the nodes" do
           @tree.nodes.length.must_equal(7)
-          @tree.nodes.map(&:data).must_equal %w(Alice Andy Barry Dan Daniel Sally Ted)
+          @tree.map(&:data).must_equal %w(Alice Andy Barry Dan Daniel Sally Ted)
         end
       end
 
@@ -43,37 +43,35 @@ describe BinaryTree do
       end
 
       describe "include?" do
-        it "should find a Node by name" do
-          @tree.include?('Sally').must_equal true
-          @tree.include?('Brian').must_equal false
+        it "should find a Node by it's data" do
+          @tree.include?(Node.new('Sally')).must_equal true
+          @tree.include?(Node.new('Brian')).must_equal false
         end
       end
 
       describe "find" do
-        it "should return the node with a given name" do
-          @tree.find("Ted").wont_equal nil
-          @tree.find("Ted").left.data.must_equal("Daniel")
-          @tree.find("Ted").left.right.data.must_equal("Sally")
+        it "should return the first node matching the block" do
+          ted = @tree.find { |node| node.data.start_with? "T" }
+          ted.wont_equal nil
+          ted.left.data.must_equal("Daniel")
+          ted.left.right.data.must_equal("Sally")
         end
       end
 
       describe "find_all" do
         it "should return nodes having data of length greater than 3" do
-          @tree.find_all do |node|
-            node.data.length > 3
-          end.map(&:data).must_equal ["Alice", "Andy", "Barry", "Daniel", "Sally"]
+          nodes = @tree.find_all { |node| node.data.length > 3 }
+          nodes.map(&:data).must_equal ["Alice", "Andy", "Barry", "Daniel", "Sally"]
         end
 
         it "should return nodes having exactly two children" do
-          @tree.find_all do |node|
-            node.left && node.right
-          end.map(&:data).must_equal ["Dan"]
+          nodes = @tree.find_all { |node| node.left && node.right }
+          nodes.map(&:data).must_equal ["Dan"]
         end
 
         it "should return nodes ending in y" do
-          @tree.find_all do |node|
-            node.data =~ /y$/
-          end.map(&:data).must_equal ["Andy", "Barry", "Sally"]
+          nodes = @tree.find_all { |node| node.data =~ /y$/ }
+          nodes.map(&:data).must_equal ["Andy", "Barry", "Sally"]
         end
       end
 
