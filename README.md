@@ -1,14 +1,22 @@
 # Blocks
 
-## Install and Running
+We're going to practice using blocks, implementing the [Enumerable](https://ruby-doc.org/core-2.4.0/Enumerable.html) module so that
+we can improve the readability and extensibility of our code.
+
+We've provided an implementation of a [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree). We've implemented an `insert` method, that takes a `Node` object and automatically assigns it to the appropriate place in the tree.
+
+### Setup and Running
 
 ```
 bundle
 bundle exec ruby spec/binary_tree_spec.rb
 ```
 
-
 ## TODO
+
+Read the code and see if you can follow how nodes are created and added. Notice the use of the [Comparable](https://ruby-doc.org/core-2.4.0/Comparable.html) module to allow us to compare `Node` objects using `>` and `<`.
+
+We're going to use unit tests to help guide our development. Keep running the commands below to determine whether you have satisfactorily completed each step. Don't forget to `git add` and `git commit` your work after each step.
 
 * Write a method `nodes` that returns all of the nodes in the tree, in alphabetical order.
 
@@ -30,17 +38,18 @@ bundle exec ruby spec/binary_tree_spec.rb
 
 `bundle exec ruby spec/binary_tree_spec.rb --name /"5. find_all"/`
 
-At this point, you might notice something about your methods. Are they at all similar? You might have found that you are even cut + pasting your code from method to method, since they all have something in common: you had to code _how_ to navigate around your tree; the only difference was _what_ you did differently each time.
+At this point, you will have the beginnings of a perfectly usable binary search tree. However, there will be by now quite a bit of repititon between some of your methods. In each case, we'll be navigating the tree, searching for nodes; but what we'll _do_ with each method will vary slightly. This is the purpose of using code blocks- we want to separate _how_ we step over the tree structure, from _what to do_ with each node we find.
+
+You might have found that you are even cut + pasting your code from method to method, since they all have something in common: you had to code _how_ to navigate around your tree; the only difference was _what_ you did differently each time.
 
 ### Enter Enumerable
 
 Once we've established how to navigate over the tree, we can DRY up our code and avoid repetition by using the `Enumerable` module. Once we define an `each` method, we have access to all of the built-in methods we are accustomed to with arrays and hashes, such as `map`, `select`, `max`, `min` and so on, without having to reinvent the wheel and re-implement them.
 
-1. Refactor your code so that you create an each method that steps over the nodes one at a time. Don't forget to pass each of the nodes to the block, so that each node is provided to the block.
+1. Refactor your code so that you create an `each` method that steps over the nodes one at a time. Don't forget to pass each of the nodes to the block, so that each node is provided to the block.
 
-2. Include the Enumerable module in your code: `include Enumerable`
+2. Include the Enumerable module in your code, within the `BinaryTree` class: `include Enumerable`
 
 3. See if you can comment out your methods and see if things still work! The `find`, `find_all` and `include?` methods should continue to work, whilst the node and leaves methods can be trivially implemented using `alias` and `select` respectively.
 
-
-
+4. Note that you also now have available all of the `Enumerable` methods!
