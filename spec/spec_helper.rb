@@ -1,0 +1,5 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'pry'
+require './lib/binary_tree'
+require './lib/node'
