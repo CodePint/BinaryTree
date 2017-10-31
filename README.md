@@ -38,7 +38,7 @@ We're going to use unit tests to help guide our development. Keep running the co
 
 `bundle exec ruby spec/binary_tree_spec.rb --name /"5. find_all"/`
 
-At this point, you will have the beginnings of a perfectly usable binary search tree. However, there will be by now quite a bit of repititon between some of your methods. In each case, we'll be navigating the tree, searching for nodes; but what we'll _do_ with each method will vary slightly. This is the purpose of using code blocks- we want to separate _how_ we step over the tree structure, from _what to do_ with each node we find.
+At this point, you will have the beginnings of a perfectly usable binary search tree. However, there will be by now quite a bit of repetiton between some of your methods. In each case, we'll be navigating the tree, searching for nodes; but what we'll _do_ with each method will vary slightly. This is the purpose of using code blocks- we want to separate _how_ we step over the tree structure, from _what to do_ with each node we find.
 
 You might have found that you are even cut + pasting your code from method to method, since they all have something in common: you had to code _how_ to navigate around your tree; the only difference was _what_ you did differently each time.
 
@@ -52,4 +52,7 @@ Once we've established how to navigate over the tree, we can DRY up our code and
 
 3. See if you can comment out your methods and see if things still work! The `find`, `find_all` and `include?` methods should continue to work, whilst the node and leaves methods can be trivially implemented using `alias` and `select` respectively.
 
-4. Note that you also now have available all of the `Enumerable` methods!
+4. Note that you also now have available all of the `Enumerable` methods! See what happens if you call some other methods such as `map`, `first`, `min`, `max`, `select` and so on...
+
+5. Once you're done, send us a merge request so that we can feedback on your work.
+
