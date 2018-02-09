@@ -10,6 +10,7 @@ class Node
   def <=>(node)
     data <=> node.data
   end
+  
 
   def to_s
     [left, data, right].join(" ")
