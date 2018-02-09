@@ -2,6 +2,7 @@ require 'pry'
 require './node'
 
 class BinaryTree
+  include Enumerable 
   attr_accessor :root
   def insert(new_node, node = root)
     if root.nil?  # if root (first node in tree) does not exist
@@ -34,12 +35,11 @@ class BinaryTree
   end
 
 
-  def leaves
 
-  def each(&block)
-    left.each(&block) if left
-    block.call(self)
-    right.each(&block) if right
+  def each(current_node = self.root, &block)
+    each(current_node.left, &block) if current_node.left
+    block.call(current_node)
+    each(current_node.right, &block) if current_node.right
   end
 
 
@@ -51,12 +51,9 @@ end
 @tree = BinaryTree.new
 
 %w(Dan Barry Ted Daniel Alice Andy Sally).each do |name|
-@tree.insert(Node.new(name))
+  @tree.insert(Node.new(name))
 end
 
-puts @tree.nodes
-@tree = @tree.nodes
-puts @tree.length
 puts @tree.map(&:data)
 
 
